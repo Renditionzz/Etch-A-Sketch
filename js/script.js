@@ -25,4 +25,28 @@ function createGrid(number){
     document.body.appendChild(container);
 }
 
+/*
+    Goal: Generate a random color
+    for each color (r,g,b)
+        Generate a number between 0 and 255
+        add to array
+        return array
+*/
+function randomColorValue(){
+    let randomColor = [0,0,0];
+    for (let color = 0; color < 3; color++){
+        const colorValue = Math.round(Math.random() * 255);
+        randomColor[color] = colorValue;
+    }
+    return `rgb(${randomColor[0]}, ${randomColor[1]}, ${randomColor[2]})`;
+}
+function changeColor(){
+    color = randomColorValue();
+    this.style["background-color"] = color;
+}
+
+
 createGrid(16);
+
+const divList = document.querySelectorAll(".column");
+divList.forEach(div => div.addEventListener("mouseover", changeColor))
