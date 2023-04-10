@@ -8,16 +8,16 @@
             add column div to row div
     display row divs
 */
-
+const container = document.createElement("div");
+container.classList.add("container");
 function createGrid(number){
-    const container = document.createElement("div");
-    container.classList.add("container");
     for (let row = 0; row < number; row++){
         const rowDiv = document.createElement("div");
         rowDiv.classList.add("row");
         for (let column = 0; column < number; column++){
             const columnDiv = document.createElement("div");
             columnDiv.classList.add("column");
+            columnDiv.addEventListener("mouseover", changeColor);
             rowDiv.appendChild(columnDiv);
         }
         container.appendChild(rowDiv);
@@ -25,6 +25,11 @@ function createGrid(number){
     document.body.appendChild(container);
 }
 
+function resetGrid(number){
+    const rows = document.querySelectorAll(".row");
+    rows.forEach(row => row.remove());
+    createGrid(number);
+}
 /*
     Goal: Generate a random color
     for each color (r,g,b)
@@ -48,5 +53,15 @@ function changeColor(){
 
 createGrid(16);
 
-const divList = document.querySelectorAll(".column");
-divList.forEach(div => div.addEventListener("mouseover", changeColor))
+
+
+const button = document.querySelector("button");
+button.addEventListener("click", resizeGrid);
+
+function resizeGrid(){
+    const size = parseInt(prompt("Enter the size of the grid you'd like:"));
+    if (size >= 16 && size <= 100){
+        return resetGrid(size);
+    }
+    return alert("Incorrect value, please try again!");
+}
